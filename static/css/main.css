@@ -1,0 +1,16 @@
+body {
+    background: red;
+}
+
+#company_list tr th, tr td{
+    border: 2px solid black;
+}
+
+#company_list tr {
+    margin: 2px;
+}
+/*
+#company_list tr td{
+    border: 2px solid red;
+}
+ */
