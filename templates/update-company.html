@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ABOUT PAGE
+{% endblock %}
+
+{% block body %}
+    <div class = ''>
+    <h1>Update Company</h1>
+    <form method="post">
+        <input type="text" name="name" id="name" class="input-f" value={{ company.name }}>
+        <input type="number" name="product_id" id="product_id" class="input-f" value={{ company.product_id }}>
+        <input type="text" name="description" id="description" class="input-f" value={{ company.description }}>
+        <input type="submit" value="Update">
+    </form>
+    </div>
+{% endblock %}

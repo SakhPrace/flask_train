@@ -5,12 +5,13 @@ ABOUT PAGE
 {% endblock %}
 
 {% block body %}
-    <div class = 'container mt-5'>
+    <div class = ''>
     <h1>Create Company</h1>
-    <form action="/create-company" method="post">
-        <input type="text" name="name" id="name" class="form-control", placeholder="Enter company name"><br>
-        <input type="number" name="product_id" id="product_id", placeholder="Enter product id">
-        <input type="submit" class="btn btn-success" value="Send">
+    <form method="post">
+        <input type="text" name="name" id="name" class="input-f" placeholder="Enter company name">
+        <input type="number" name="product_id" id="product_id" class="input-f" placeholder="Enter product id">
+        <input type="text" name="description" id="description" class="input-f" placeholder="Enter description">
+        <input type="submit" value="Send">
     </form>
     </div>
 {% endblock %}

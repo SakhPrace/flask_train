@@ -1,5 +1,18 @@
 body {
-    background: red;
+
+}
+
+.input-f {
+    display: block;
+}
+
+.header {
+    background: beige;
+}
+
+.btn:hover {
+    background:grey;
+
 }
 
 #company_list tr th, tr td{

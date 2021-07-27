@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, redirect, request
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from datetime import datetime
 
 
@@ -8,10 +9,13 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://viko:4p3r7a6c82e@localhost
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'secret string'
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
 
 class Company(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.VARCHAR(length=50), nullable=False)
+    description = db.Column(db.Text, default="No description")
     registration_date = db.Column(db.DateTime, default=datetime.utcnow())
     product_id = db.Column(db.Integer, nullable=False)
 
@@ -44,8 +48,9 @@ def create_company():
     if request.method == 'POST':
         name = request.form['name']
         product_id = request.form['product_id']
+        description = request.form['description']
 
-        company = Company(name=name, product_id=product_id)
+        company = Company(name=name, product_id=product_id, description=description)
 
         try:
             db.session.add(company)
@@ -58,13 +63,32 @@ def create_company():
         return render_template("create-company.html")
 
 
+@app.route('/update-company/<int:id>', methods=['POST', 'GET'])
+def update_company(id):
+    company = Company.query.get(id)
+    print(company.id)
+    if request.method == 'POST':
+        print(company.id)
+        company.name = request.form['name']
+        company.product_id = request.form['product_id']
+        company.description = request.form['description']
+
+        try:
+            db.session.commit()
+            return redirect('/all-companies')
+        except:
+            return "Error when add"
+
+    else:
+        return render_template("update-company.html", company=company)
+
 @app.route('/all-companies')
 def all_companies():
-    #companies = Company.query.order_by(Company.registration_date).all()
-    #return render_template("all-companies.html", companies=companies)
-    return render_template("all-companies.html")
+    companies = Company.query.order_by(Company.registration_date).all()
+    return render_template("all-companies.html", companies=companies)
+    #return render_template("all-companies.html")
 
 
 if __name__ == '__main__':
-    #db.create_all()
+    db.create_all()
     app.run(debug=True)
