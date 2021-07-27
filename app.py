@@ -19,9 +19,10 @@ class Company(db.Model):
     registration_date = db.Column(db.DateTime, default=datetime.utcnow())
     product_id = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, name, product_id):
+    def __init__(self, name, product_id, description):
         self.name = name
         self.product_id = product_id
+        self.description = description
 
     def __repr__(self):
         return '<Company %>' % self.id
