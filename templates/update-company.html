@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ABOUT PAGE
+{% endblock %}
+
+{% block body %}
+    <div class = ''>
+    <h1>Update Company</h1>
+    <form method="post">
+        <label for="name">Write name:</label>
+        <input type="text" name="name" id="name" class="input-f" value={{ company.name }}>
+        <label for="product_id">Write product id:</label>
+        <input type="number" name="product_id" id="product_id" class="input-f" value={{ company.product_id }}>
+        <label for="description">Write description:</label>
+        <textarea name="description" id="description" class="input-f">{{ company.description }}</textarea>
+        <input type="submit" value="Edit">
+        <a href="/delete-company/{{ company.id }}" class="btn">Delete</a>
+    </form>
+    </div>
+{% endblock %}

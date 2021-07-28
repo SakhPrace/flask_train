@@ -5,14 +5,15 @@ All companies
 {% endblock %}
 
 {% block body %}
-    <div class = 'container mt-5'>
+    <div class = ''>
     <h1>All Companies</h1>
-        <div class="alert alert-info">
+        <div class="">
             <table id="company_list">
                 <thead>
                     <tr>
                         <th>Name of company</th>
                         <th>Product id</th>
+                        <th>Description</th>
                         <th>Creation date</th>
                     </tr>
                 </thead>
@@ -21,7 +22,9 @@ All companies
                     <tr>
                         <td>{{ el.name }}</td>
                         <td>{{ el.product_id }}</td>
+                        <td>{{ el.description}}</td>
                         <td><b>Date: {{ el.registration_date.date() }}</b></td>
+                        <td><a href="update-company/{{ el.id }}" class="btn">Edit</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
