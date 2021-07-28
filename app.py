@@ -6,7 +6,10 @@ from datetime import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://viko:4p3r7a6c82e@localhost/flask_test'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['ENV'] = 'development'
+app.config['DEBUG'] = True
+app.config['TESTING'] = True
 app.secret_key = 'secret string'
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
@@ -83,6 +86,19 @@ def update_company(id):
     else:
         return render_template("update-company.html", company=company)
 
+
+@app.route('/delete-company/<int:id>')
+def delete_company(id):
+    company = Company.query.get_or_404(id)
+
+    try:
+        db.session.delete(company)
+        db.session.commit()
+        return redirect('/all-companies')
+    except:
+        return 'Delete error'
+
+
 @app.route('/all-companies')
 def all_companies():
     companies = Company.query.order_by(Company.registration_date).all()
@@ -92,4 +108,4 @@ def all_companies():
 
 if __name__ == '__main__':
     db.create_all()
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port='5000', debug=True)
