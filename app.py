@@ -5,7 +5,7 @@ from datetime import datetime
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://viko:4p3r7a6c82e@localhost/flask_test'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:testpass@localhost/flask_test'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['ENV'] = 'development'
 app.config['DEBUG'] = True
